@@ -6,6 +6,7 @@ import org.zerock.jdbcex.dao.TodoDAO;
 import org.zerock.jdbcex.domain.TodoVO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class TodoDAOTests {
 
@@ -38,5 +39,36 @@ public class TodoDAOTests {
                 .build();
 
         todoDAO.insert(todoVO);
+    }
+
+    @Test
+    public void testList() throws Exception {
+        List<TodoVO> list = todoDAO.selectAll();
+        list.forEach(vo -> System.out.println(vo));
+    }
+
+    @Test
+    public void testSelectOne() throws Exception {
+        Long tno = 1L;
+
+        TodoVO vo = todoDAO.selectOne(tno);
+        System.out.println(vo);
+    }
+
+    @Test
+    public void testDeleteOne() throws Exception {
+        todoDAO.deleteOne(7L);
+    }
+
+    @Test
+    public void testUpdateOne() throws Exception {
+        TodoVO todoVO = TodoVO.builder()
+                .title("Sample Title222...")
+                .dueDate(LocalDate.of(2023, 12, 31))
+                .finished(false)
+                .tno(2L)
+                .build();
+
+        todoDAO.updateOne(todoVO);
     }
 }
