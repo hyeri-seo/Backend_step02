@@ -1,6 +1,7 @@
 package org.zerock.service;
 
 import com.sun.tools.javac.comp.Todo;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.zerock.jdbcex.dto.TodoDTO;
@@ -8,6 +9,7 @@ import org.zerock.jdbcex.service.TodoService;
 
 import java.time.LocalDate;
 
+@Log4j2
 public class TodoServiceTests {
     private TodoService todoService;
 
@@ -22,6 +24,9 @@ public class TodoServiceTests {
                 .title("JDBC Test Title")
                 .dueDate(LocalDate.now())
                 .build();
+
+        log.info("------------------------------------");
+        log.info(todoDTO);
 
         todoService.register(todoDTO);
     }
