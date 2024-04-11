@@ -26,6 +26,10 @@ public class TodoRegisterController extends HttpServlet {
         log.info("/todo/register GET ........................");
 
         /* 로그인 정보 유무에 따른 register.jsp 이동 여부 결정 ---- start */
+        /*
+        이 부분의 코드를 LoginCheckFilter로 이동시킴
+        컨트롤러마다 코드를 작성할 필요 없이 서블릿 전에 필터를 거쳐서 무조건 로그인 하도록
+        
         HttpSession session = req.getSession();
 
         // 새로 접속했다면
@@ -41,7 +45,7 @@ public class TodoRegisterController extends HttpServlet {
             resp.sendRedirect("/login");
             return;
         }
-
+        */
         /* 로그인 정보 유무에 따른 register.jsp 이동 여부 결정 ---- end */
 
         req.getRequestDispatcher("/WEB-INF/todo/register.jsp").forward(req, resp);
