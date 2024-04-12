@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean class="org.zerock.springex.sample.SampleDAO"/>
-    <bean class="org.zerock.springex.sample.SampleService"/>
+<!--    아래의 <bean/> 대신에 어노테이션을 클래스에 옵션으로 주면-->
+<!--    org.zerock.springex.sample 패키지 아래에 있는 모든 클래스를 스캔에서 bean으로 만들어줌-->
+    <context:component-scan base-package="org.zerock.springex.sample"/>
+
+<!--    <bean class="org.zerock.springex.sample.SampleDAO"/>-->
+<!--    <bean class="org.zerock.springex.sample.SampleService"/>-->
 
 </beans>
