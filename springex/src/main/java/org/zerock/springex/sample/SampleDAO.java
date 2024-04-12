@@ -1,7 +1,5 @@
 package org.zerock.springex.sample;
 
-import org.springframework.stereotype.Repository;
-
-@Repository // 데이터베이스 엑세스 기능에 부여
-public class SampleDAO {
+// 느슨한 설계를 위해 interface로 변경
+public interface SampleDAO {
 }
