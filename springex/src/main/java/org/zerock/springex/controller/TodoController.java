@@ -23,12 +23,12 @@ public class TodoController {
     private final TodoService todoService;
 
     // /todo/list
-    @RequestMapping("/list")
-    public void list() {
-        log.info("todo List......");
-
-        // /WEB-INF/views/todo/list.jsp
-    }
+//    @RequestMapping("/list")
+//    public void list() {
+//        log.info("todo List......");
+//
+//        // /WEB-INF/views/todo/list.jsp
+//    }
 
     // /todo/register
 //    @RequestMapping(value = "/register", method = RequestMethod.GET)
