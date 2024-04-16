@@ -41,4 +41,19 @@
          values (#{title}, #{dueDate}, #{writer})
     </insert>
 
+    <select id="selectAll" resultType="org.zerock.springex.domain.TodoVO">
+        select * from tbl_todo order by tno desc;
+    </select>
+
+    <select id="selectOne" resultType="org.zerock.springex.domain.TodoVO">
+        select * from tbl_todo where tno = #{tno}
+    </select>
+
+    <delete id="delete">
+        delete from tbl_todo where tno = #{tno}
+    </delete>
+
+    <update id="update">
+        update tbl_todo set title = #{title}, dueDate = #{dueDate}, finished = #{finished} where tno = #{tno}
+    </update>
 </mapper>
