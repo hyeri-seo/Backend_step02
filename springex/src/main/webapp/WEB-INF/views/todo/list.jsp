@@ -40,37 +40,37 @@
         </div>
         <!-- header end -->
         <!-- 기존의 <h1>Header</h1>끝 -->
-        <div class="row content">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Search </h5>
+<%--        <div class="row content">--%>
+<%--            <div class="col">--%>
+<%--                <div class="card">--%>
+<%--                    <div class="card-body">--%>
+<%--                        <h5 class="card-title">Search </h5>--%>
                         <form action="/todo/list" method="get">
                             <input type="hidden" name="size" value="${pageRequestDTO.size}">
-                            <div class="mb-3">
-                                <input type="checkbox" name="finished" ${pageRequestDTO.finished?"checked":""} >완료여부
-                            </div>
-                            <div class="mb-3">
-                                <input type="checkbox" name="types" value="t" ${pageRequestDTO.checkType("t")?"checked":""}>제목
-                                <input type="checkbox" name="types" value="w"  ${pageRequestDTO.checkType("w")?"checked":""}>작성자
-                                <input type="text"  name="keyword" class="form-control" value ='<c:out value="${pageRequestDTO.keyword}"/>' >
-                            </div>
-                            <div class="input-group mb-3 dueDateDiv">
-                                <input type="date" name="from" class="form-control" value="${pageRequestDTO.from}">
-                                <input type="date" name="to" class="form-control"  value="${pageRequestDTO.to}">
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="float-end">
-                                    <button class="btn btn-primary" type="submit">Search</button>
-                                    <button class="btn btn-info clearBtn" type="reset">Clear</button>
-                                </div>
-                            </div>
+<%--                            <div class="mb-3">--%>
+<%--                                <input type="checkbox" name="finished" ${pageRequestDTO.finished?"checked":""} >완료여부--%>
+<%--                            </div>--%>
+<%--                            <div class="mb-3">--%>
+<%--                                <input type="checkbox" name="types" value="t" ${pageRequestDTO.checkType("t")?"checked":""}>제목--%>
+<%--                                <input type="checkbox" name="types" value="w"  ${pageRequestDTO.checkType("w")?"checked":""}>작성자--%>
+<%--                                <input type="text"  name="keyword" class="form-control" value ='<c:out value="${pageRequestDTO.keyword}"/>' >--%>
+<%--                            </div>--%>
+<%--                            <div class="input-group mb-3 dueDateDiv">--%>
+<%--                                <input type="date" name="from" class="form-control" value="${pageRequestDTO.from}">--%>
+<%--                                <input type="date" name="to" class="form-control"  value="${pageRequestDTO.to}">--%>
+<%--                            </div>--%>
+<%--                            <div class="input-group mb-3">--%>
+<%--                                <div class="float-end">--%>
+<%--                                    <button class="btn btn-primary" type="submit">Search</button>--%>
+<%--                                    <button class="btn btn-info clearBtn" type="reset">Clear</button>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
                         </form>
-                    </div>
-                </div>
+<%--                    </div>--%>
+<%--                </div>--%>
 
-            </div>
-        </div>
+<%--            </div>--%>
+<%--        </div>--%>
 
         <div class="row content">
             <div class="col">
@@ -117,18 +117,19 @@
                             <ul class="pagination flex-wrap">
                                 <c:if test="${responseDTO.prev}">
                                     <li class="page-item">
-                                        <a class="page-link" data-num="${responseDTO.start -1}">Previous</a>
+                                        <a class="page-link" data-num="${responseDTO.start -1}">&laquo;</a>
                                     </li>
                                 </c:if>
 
                                 <c:forEach begin="${responseDTO.start}" end="${responseDTO.end}" var="num">
                                     <li class="page-item ${responseDTO.page == num? "active":""} ">
-                                        <a class="page-link"  data-num="${num}">${num}</a></li>
+                                        <a class="page-link"  data-num="${num}">${num}</a>
+                                    </li>
                                 </c:forEach>
 
                                 <c:if test="${responseDTO.next}">
                                     <li class="page-item">
-                                        <a class="page-link"  data-num="${responseDTO.end + 1}">Next</a>
+                                        <a class="page-link"  data-num="${responseDTO.end + 1}">&raquo;</a>
                                     </li>
                                 </c:if>
                             </ul>
@@ -152,34 +153,44 @@
                                     self.location = `/todo/list?page=\${num}` //백틱(` `)을 이용해서 템플릿 처리
                                 },false)*/
 
+                            /* addEventListener(이벤트 이름, 이벤트 처리 함수, false)
+                                3번째 인자인 false는 '이벤트 버블링'의 의미로
+                                자식에서 이벤트가 발생했을 때 부모는 자식부터 순서대로
+                                동일한 이벤트를 수신한다는 의미이다.
+
+                                '이벤트 버블링'은 자식들에서 일어난 일을 공통으로 처리할 수 있어서
+                                많이 사용된다.
+                             */
                             document.querySelector(".pagination").addEventListener("click", function (e) {
-                                e.preventDefault()
-                                e.stopPropagation()
+                                e.preventDefault();
+                                e.stopPropagation();
 
-                                const target = e.target
+                                const target = e.target;    // 이벤르르 발생시킨 주체(자식)
 
+                                // <a></a> 태그에서 발생한 것이 아니라면 무시
                                 if(target.tagName !== 'A') {
-                                    return
+                                    return;
                                 }
-                                const num = target.getAttribute("data-num")
+                                // 해당 자식에서 data-num 이라는 사용자 속성값을 추출
+                                const num = target.getAttribute("data-num");
 
-                                const formObj = document.querySelector("form")
+                                const formObj = document.querySelector("form");
 
-                                formObj.innerHTML += `<input type='hidden' name='page' value='\${num}'>`
+                                formObj.innerHTML += `<input type='hidden' name='page' value='\${num}'>`;
 
                                 formObj.submit();
-
-                            },false)
-
+                            },false);
 
 
                             document.querySelector(".clearBtn").addEventListener("click", function (e){
-                                e.preventDefault()
-                                e.stopPropagation()
+                                e.preventDefault();     // tag에 부여된 html 기본 동작을 하지 않도록
+                                e.stopPropagation();    // 이벤트 전달을 멈추는 것
 
-                                self.location ='/todo/list'
+                                // 아무 값도 전달하지 않으므로 PageRequestDTO에 설정된 default값이 적용됨
+                                // 그러므로 1페이지, 10개 데이터가 보여진다.
+                                self.location ='/todo/list';
 
-                            },false)
+                            },false);
 
 
                         </script>

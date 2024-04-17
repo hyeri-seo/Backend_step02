@@ -71,9 +71,14 @@ public class TodoController {
         log.info("todo List .....");
 
         if(bindingResult.hasErrors()) {
+            // 디폴트 값을 가지게 된다. (page=1, size=10)
+            // 첫 번째 페이지가 나오도록
             pageRequestDTO = PageRequestDTO.builder().build();
         }
 //        model.addAttribute("dtoList", todoService.getAll());
+        // PageRequestDTO를 todoService.getList에 넘겨주면 pageResponseDTO를 리턴함
+        // 이 리턴된 값을 model -> request -> jsp에 전달
+        // 이 전달된 responseDTO를 jsp가 꺼내서 bootstrap의 pagination의 컴포넌트를 구성
         model.addAttribute("responseDTO", todoService.getList(pageRequestDTO));
     }
 
