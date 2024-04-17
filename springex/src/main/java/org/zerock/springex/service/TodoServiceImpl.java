@@ -5,8 +5,11 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.zerock.springex.domain.TodoVO;
+import org.zerock.springex.dto.PageRequestDTO;
+import org.zerock.springex.dto.PageResponseDTO;
 import org.zerock.springex.dto.TodoDTO;
 import org.zerock.springex.mapper.TodoMapper;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,14 +39,31 @@ public class TodoServiceImpl implements TodoService{
         todoMapper.insert(todoVO);
     }
 
-    @Override
-    public List<TodoDTO> getAll() {
+//    @Override
+//    public List<TodoDTO> getAll() {
+//
+//        List<TodoDTO> dtoList = todoMapper.selectAll().stream()
+//                .map(vo -> modelMapper.map(vo, TodoDTO.class))
+//                .collect(Collectors.toList());
+//
+//        return dtoList;
+//    }
 
-        List<TodoDTO> dtoList = todoMapper.selectAll().stream()
+    @Override
+    public PageResponseDTO<TodoDTO> getList(PageRequestDTO pageRequestDTO) {
+        List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
+        List<TodoDTO> dtoList = voList.stream()
                 .map(vo -> modelMapper.map(vo, TodoDTO.class))
                 .collect(Collectors.toList());
+        int total = todoMapper.getCount(pageRequestDTO);
 
-        return dtoList;
+        PageResponseDTO<TodoDTO> pageResponseDTO = PageResponseDTO.<TodoDTO>withAll()
+                .dtoList(dtoList)
+                .total(total)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
+
+        return pageResponseDTO;
     }
 
     @Override
