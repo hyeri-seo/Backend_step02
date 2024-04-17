@@ -26,8 +26,30 @@ public class PageRequestDTO {
     @Positive
     private int size =  10;     // 페이지당 보여줄 정보의 크기
 
+    private String link;
+
     // 해당 페이지 이전에 몇 개를 건너 뛰어야 하는지 계산하는 메서드
     public int getSkip() {
         return (page-1) * 10;
+    }
+
+    /*
+    /todo/list에서 /todo/read, /todo/modify 등으로 디오했다가
+    다시 /todo/list로 돌아올 때 현재 내 페이지로 돌아오도록 하기 위해
+    이 링크 정보를 붙여서 url 이동을 하는 용도로 사용함
+     */
+    public String getLink() {
+        if(link == null) {
+            
+            // StringBuilder는 내부에 character 배열이 있어서 append 이용해서 한 번에 추가해서 붙여서 나옴
+            // String 이용해서 += 해줘도 되긴 함
+            // 지나치게 문자열이 바뀌는 상황에서는 StringBuilder는 할당된 공간을 재사용하는 것이기 때문에 속도가 더 빠름
+            // String은 새로운 문자열을 할당했다가 가비지 컬렉터에서 수거하기 때문에 속도가 느려질 수 있음
+            StringBuilder builder = new StringBuilder();
+            builder.append("page=" + this.page);
+            builder.append("&size=" + this.size);
+            link = builder.toString();
+        }
+        return link;
     }
 }
