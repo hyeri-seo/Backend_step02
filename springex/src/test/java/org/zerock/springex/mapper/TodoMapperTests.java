@@ -70,11 +70,15 @@ public class TodoMapperTests {
                 .size(10)
                 .types(new String[]{"t", "w"})
                 .keyword("스프링")
-                .finished(true)
+                //.finished(true)
+                .from(LocalDate.of(2024, 04, 01))
+                .to(LocalDate.of(2024, 04, 30))
                 .build();
 
         List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
 
         voList.forEach(vo -> log.info(vo));
+
+        log.info(todoMapper.getCount(pageRequestDTO));
     }
 }
