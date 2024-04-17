@@ -1,6 +1,7 @@
 package org.zerock.springex.service;
 
 import org.zerock.springex.dto.TodoDTO;
+
 import java.util.List;
 
 public interface TodoService {
@@ -14,4 +15,5 @@ public interface TodoService {
     void remove(Long tno);
 
     void modify(TodoDTO todoDTO);
+
 }
