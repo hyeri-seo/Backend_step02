@@ -6,11 +6,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.zerock.springex.domain.TodoVO;
 import org.zerock.springex.dto.PageRequestDTO;
 import org.zerock.springex.dto.PageResponseDTO;
 import org.zerock.springex.dto.TodoDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -40,4 +42,5 @@ public class TodoServiceTests {
         log.info(responseDTO);
         responseDTO.getDtoList().stream().forEach(todoDTO -> log.info(todoDTO));
     }
+
 }

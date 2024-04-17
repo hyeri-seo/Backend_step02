@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 
 @Builder
 @Data
@@ -52,4 +53,12 @@ public class PageRequestDTO {
         }
         return link;
     }
+
+    // -------------- 검색 조건 관련 필드 ------------------------
+
+    private String[] types;     // 제목(t), 작성자(w)
+    private String keyword;     // 검색어
+    private boolean finished;   // 완료 여부
+    private LocalDate from;     // 시작 시간
+    private LocalDate to;       // 종료 시간
 }
