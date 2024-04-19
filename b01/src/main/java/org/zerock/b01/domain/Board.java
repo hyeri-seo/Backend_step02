@@ -1,6 +1,7 @@
 package org.zerock.b01.domain;
 
 import lombok.*;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ DB 논리적 설계 단계에서 물리적 설계로 전환되기 전에
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@RestController
 public class Board extends BaseEntity{
 
     /*
