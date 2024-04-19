@@ -52,12 +52,20 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
     @Override
     public Page<Board> searchAll(String[] types, String keyword, Pageable pageable) {
 
+        // Querydsl을 JPQL 변환하기 위한 역할
         QBoard board = QBoard.board;
         JPQLQuery<Board> query = from(board);
 
         if((types != null && types.length > 0) && keyword != null) {    // 검색 조건과 키워드가 있다면
 
+            // ( 의 역할을 해줌
             BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+            /*
+            title like '%1%'
+            or content like '%1%'
+            or writer like '%1%'
+             */
 
             for(String type : types) {
 
@@ -72,20 +80,49 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                         booleanBuilder.or(board.writer.contains(keyword));
                         break;
                 }
-            }   // end for
-            query.where(booleanBuilder);
-        }   // end if
+            }
+            // )
 
-        // bno > 0
+            /*
+            where (
+                title like '%1%'
+                or content like '%1%'
+                or writer like '%1%'
+            )
+             */
+            query.where(booleanBuilder);
+        }
+
+        // and bno > 0L
         query.where(board.bno.gt(0L));
 
         // paging
+        // order by bno desc limit 1, 10;
         this.getQuerydsl().applyPagination(pageable, query);
 
+        /*"
+        select count(bno)
+            from board
+            where (
+                title like '%1%'
+                or content like '%1%'
+                or writer like '%1%'
+            )
+            and bno > 0L
+            order by bno desc limit 1, 10;
+         */
         List<Board> list = query.fetch();
 
         long count = query.fetchCount();
 
+        /*
+        list: 실제 row 리스트들
+        pageable: 페이지 처리하는 데 필요한 정보
+        count: 전체 row 개수
+
+        페이징 처리하려면 이것들이 모두 필요하므로 묶어서 넘기려고
+        Page<E>를 상속받은 PageImpl<E> 클래스를 만들어 놓은 것이다.
+         */
         return new PageImpl<>(list, pageable, count);
     }
 }
