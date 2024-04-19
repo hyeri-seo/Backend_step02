@@ -19,4 +19,6 @@ BoardSearchImpl의 구현 메서드를 호출하게 된다.
  */
 public interface BoardSearch {
      Page<Board> search1(Pageable pageable);
+
+     Page<Board> searchAll(String[] types, String keyword, Pageable pageable);
 }

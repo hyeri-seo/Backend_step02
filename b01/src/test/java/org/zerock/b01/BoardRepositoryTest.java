@@ -111,4 +111,36 @@ public class BoardRepositoryTest {
 
         boardRepository.search1(pageable);
     }
+
+    @Test
+    public void testSearchAll() {
+
+        String[] types = {"t", "c", "w"};
+        String keyword = "1";
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+        Page<Board> result = boardRepository.searchAll(types, keyword, pageable);
+    }
+
+    @Test
+    public void testSearchAll2() {
+
+        String[] types = {"t", "c", "w"};
+        String keyword = "1";
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+        Page<Board> result = boardRepository.searchAll(types, keyword, pageable);
+
+        // total pages
+        log.info(result.getTotalPages());
+
+        // page size
+        log.info(result.getSize());
+
+        // page number
+        log.info(result.getNumber());
+
+        // prev next
+        log.info(result.hasPrevious() + ": " + result.hasNext());
+
+        result.getContent().forEach(board -> log.info(board));
+    }
 }
