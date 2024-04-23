@@ -1,4 +1,4 @@
-package org.zerock.b01;
+package org.zerock.b01.repository;
 
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.zerock.b01.domain.Board;
-import org.zerock.b01.repository.BoardRepository;
 
 import java.util.List;
 import java.util.Optional;
