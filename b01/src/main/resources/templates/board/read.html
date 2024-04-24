@@ -76,3 +76,19 @@
     })
 
 </script>
+
+<script layout:fragment="script" th:inline="javascript">
+
+    const bno = [[${dto.bno}]]
+
+    function printReplies(page, size, goLast) {
+
+        getList({bno, page, size, goLast}).then(
+            data => {console.log(data)}
+        ).catch(e => {
+            console.error(e)
+        })
+    }
+
+    printReplies(1,10)   // 무조건 호출
+</script>
