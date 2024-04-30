@@ -52,14 +52,16 @@ dependencies {
 
 			"com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
 
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
-
 	implementation 'org.modelmapper:modelmapper:3.1.0'
+
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+	implementation 'net.coobird:thumbnailator:0.4.16'
 }
 
 tasks.named('test') {
@@ -72,8 +74,4 @@ sourceSets {
 			srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
 		}
 	}
-}
-
-clean {
-	delete file('src/main/generated')
 }

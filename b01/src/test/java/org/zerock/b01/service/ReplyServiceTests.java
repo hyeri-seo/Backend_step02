@@ -14,8 +14,7 @@ public class ReplyServiceTests {
     private ReplyService replyService;
 
     @Test
-    public void testRegister() {
-
+    public void testRegister(){
         ReplyDTO replyDTO = ReplyDTO.builder()
                 .replyText("ReplyDTO Text")
                 .replyer("replyer")
